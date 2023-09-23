@@ -4,9 +4,9 @@ import yt_dlp as youtube_dl
 from json import loads
 from discord.ext import commands
 import requests
-TOKEN = 'MTE1MjgzMDAwMzQwNzUwMzQ1Mg.Gw6rVz.nss0z6tmAul8HuPctob7_TSUtgHR0mGhH-m5vA'
+TOKEN = 'MTE1MjgzMDAwMzQwNzUwMzQ1Mg.GM6pnh.svpCLHDBq1kOHoUTeENz_h7IKA2PHPS6TwE1X8'
 
-client = discord.Client(intents=discord.Intents.all())
+client = discord.Client(intents=discord.Intents.all(),command_prefix=commands.when_mentioned_or("/"))
 
 youtube_dl.utils.bug_reports_message = lambda: ''
 
@@ -120,19 +120,31 @@ class Music(commands.Cog):
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
-                await ctx.author.voice.channel.connect()
+                channel = ctx.message.author.voice.channel
+                await channel.connect
             else:
                 await ctx.send("음성 채널에 접속하시지 않았습니다!")
                 raise commands.CommandError("Author not connected to a voice channel.")
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()
- 
- 
+    @commands.command()
+    async def 명령어(self, ctx):
+        await ctx.send("임베드 / 유튜브")
+
+    @commands.command()
+    async def 유튜브(self,ctx):
+        embed = discord.Embed(title="KinJeok", description="official youtube channel",timestamp=datetime.datetime.now(pytz.timezone('UTC')), color=0xccf8ff)
+
+        embed.add_field(name="URL", value="https://www.youtube.com/channel/UC38G1mjjjGAJdRHbbbvIIUw", inline=False)
+
+        embed.set_footer(text="Bot Made by. KinJeok", icon_url="https://yt3.googleusercontent.com/D7et0EF7ez2G1Lpws8vQ12EJ9d0VR5eN6E2En6mjBOfpirlo1LqN6W-lqkce9fkUK2VHPCKh2g=s900-c-k-c0x00ffffff-no-rj")
+        embed.set_thumbnail(url="https://yt3.googleusercontent.com/D7et0EF7ez2G1Lpws8vQ12EJ9d0VR5eN6E2En6mjBOfpirlo1LqN6W-lqkce9fkUK2VHPCKh2g=s900-c-k-c0x00ffffff-no-rj")
+        await ctx.send (embed=embed)
 intents = discord.Intents.default()
 intents.message_content = True
  
 bot = commands.Bot(
-    command_prefix=commands.when_mentioned_or("!"),
+    command_prefix=commands.when_mentioned_or("/"),
     description='Relatively simple music bot example',
     intents=intents,
 )
@@ -153,23 +165,22 @@ async def main():
 @client.event
 async def on_ready(): # 봇이 실행되면 한 번 실행됨
     print("이 문장은 Python의 내장 함수를 출력하는 터미널에서 실행됩니다\n지금 보이는 것 처럼 말이죠")
-    await client.change_presence(status=discord.Status.online, activity=discord.Game("VsCode"))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game("Vscode"))
 
 @client.event
 async def on_message(message):
     if '안녕' in message.content: # 메세지 감지
         await message.channel.send ("어서오세요! {}님!".format( message.author.mention))
-    if message.content == "명령어": # 메세지 감지
-        await message.channel.send ("임베드 / 추가예정")
+    if message.content == "납작복숭아": # 메세지 감지
+        await message.channel.send ("뭐")
     if message.content == "임베드": # 메세지 감지
-        embed = discord.Embed(title="임베드워즈", description="부제목",timestamp=datetime.datetime.now(pytz.timezone('UTC')), color=0xccf8ff)
+        embed = discord.Embed(title="Example", description="example description",timestamp=datetime.datetime.now(pytz.timezone('UTC')), color=0xccf8ff)
 
         embed.add_field(name="내가 고자라니", value="== 이지안", inline=False)
 
-        embed.set_footer(text="Bot Made by. KinJeok", icon_url="https://discord.com/channels/@me/1152843749337083924/1152847243246841856")
-        embed.set_thumbnail(url="https://discord.com/channels/@me/1152843749337083924/1152847243246841856")
+        embed.set_footer(text="Bot Made by. KinJeok", icon_url="https://yt3.googleusercontent.com/D7et0EF7ez2G1Lpws8vQ12EJ9d0VR5eN6E2En6mjBOfpirlo1LqN6W-lqkce9fkUK2VHPCKh2g=s900-c-k-c0x00ffffff-no-rj")
+        embed.set_thumbnail(url="https://yt3.googleusercontent.com/D7et0EF7ez2G1Lpws8vQ12EJ9d0VR5eN6E2En6mjBOfpirlo1LqN6W-lqkce9fkUK2VHPCKh2g=s900-c-k-c0x00ffffff-no-rj")
         await message.channel.send (embed=embed)
-
 # 봇을 실행시키기 위한 토큰을 작성해주는 곳
 async def run_bot_and_main():
     await asyncio.gather(
