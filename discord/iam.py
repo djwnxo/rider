@@ -60,6 +60,8 @@ async def on_message(message):
         await message.channel.send ("어서오세요! {}님!".format( message.author.mention))
     if message.content == "납작복숭아": # 메세지 감지
         await message.channel.send ("뭐")
+    if message.content == "긴적": # 메세지 감지
+        await message.channel.send ("양진중학교대표씹존잘")
     if message.content == "임베드": # 메세지 감지
         embed = discord.Embed(title="Example", description="example description",timestamp=datetime.datetime.now(pytz.timezone('UTC')), color=0xccf8ff)
 
