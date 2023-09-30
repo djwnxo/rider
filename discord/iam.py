@@ -4,19 +4,19 @@ import discord, asyncio, datetime, pytz
 from json import loads
 from discord.ext import commands
 import requests
-TOKEN = 'MTE1MjgzMDAwMzQwNzUwMzQ1Mg.GEqLUq.FcfHR8NfXUfX46wo1ki1obtEy4TUDGt96BGeYI'
+TOKEN = 'MTE1MjgzMDAwMzQwNzUwMzQ1Mg.Gc44P2.ojgNkMWf_v8RyWX9LbiEWX7YxfJChYiAVNLqh0'
 
 client = discord.Client(intents=discord.Intents.all())
 
 
- 
+
 # youtube 음악과 로컬 음악의 재생을 구별하기 위한 클래스 작성.
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.command()
-    async def 명령어(self, ctx):
-        await ctx.send("임베드 / 유튜브")
+    async def 도움말(self, ctx):
+        await ctx.send("임베드 (임베드를 보여줍니다.)\n유튜브 (긴적의 유튜브 채널을 보여줍니다.)")
 
     @commands.command()
     async def 유튜브(self,ctx):
